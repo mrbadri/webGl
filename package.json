@@ -1,0 +1,22 @@
+{
+  "name": "01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd 01 && npm start",
+    "build": "cd 01 && npm run build",
+    "dev": "cd 01 && npm run dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.2.10"
+  },
+  "dependencies": {
+    "three": "^0.164.1"
+  },
+  "workspaces": [
+    "packages/**/*"
+  ]
+}
