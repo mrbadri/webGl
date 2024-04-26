@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd 01 && npm start",
-    "build": "cd 01 && npm run build",
-    "dev": "cd 01 && npm run dev"
+    "start": "cd $npm_config_projectname && npm start",
+    "build": "cd $npm_config_projectname && npm run build",
+    "dev": "cd $npm_config_projectname && npm run dev"
   },
   "author": "",
   "license": "ISC",
