@@ -16,19 +16,36 @@ const camera = new THREE.PerspectiveCamera(
 scene.add(camera);
 
 camera.position.x = 5;
-camera.position.y = 5;
-camera.position.z = 5;
+camera.position.y = 3;
+camera.position.z = 3;
 camera.lookAt(0, 0, 0);
 
-const spotLight = new THREE.spotLight(0xffffff, 100);
-spotLight.set(5, 1, 4);
+const spotLight = new THREE.SpotLight(0xffffff, 100);
+
+spotLight.position.set(5, 1, 4);
 scene.add(spotLight);
 
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0xff0044 });
+// GROUND
+const planeGeometry = new THREE.PlaneGeometry(5, 4);
 
-const box = new THREE.Mesh(geometry, material);
+// // -- material
+const planeMaterial = new THREE.MeshLambertMaterial({ color: 0xff0044 });
 
-scene.add(box);
+const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
+
+planeMesh.rotation.x = Math.PI / 5;
+
+scene.add(planeMesh);
+
+// BOX
+const boxGeometry = new THREE.BoxGeometry(1, 1);
+
+// -- material
+const boxMaterial = new THREE.MeshLambertMaterial({ color: 0xff0044 });
+// const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xff0044 });
+
+const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+
+scene.add(boxMesh);
 
 renderer.render(scene, camera);
