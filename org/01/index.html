@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Lesson 01</title>
+</head>
+<body>
+
+
+
+
+<script type="module">
+    import * as THREE from 'three';
+
+    const renderer = new THREE.WebGLRenderer();
+    document.body.appendChild(renderer.domElement)
+    renderer.setSize(window.innerWidth,window.innerHeight)
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45,window.innerWidth/window.innerHeight,1,100);
+    scene.add(camera)
+    camera.position.x = 5;
+    camera.position.y = 3;
+    camera.lookAt(0,0,0)
+
+
+    const geometry = new THREE.BoxGeometry(1,1);
+    const mtl = new THREE.MeshBasicMaterial({color : 0xff0044});
+    const box = new THREE.Mesh(geometry,mtl);
+
+    scene.add(box)
+
+    renderer.render(scene,camera)
+
+</script>
+
+
+
+</body>
+</html>
