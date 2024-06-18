@@ -9,9 +9,11 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 // active shadow
 renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.VSMShadowMap;
 
 // Initialize scene
 const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x0000ff, 3, 15);
 
 // Initialize camera
 const camera = new THREE.PerspectiveCamera(
@@ -28,10 +30,12 @@ camera.lookAt(0, 0, 0);
 
 // Add lighting
 const spotLight = new THREE.SpotLight(0xffffff, 1);
-spotLight.position.set(5, 1, 4);
+spotLight.position.set(3, 1, 2);
 spotLight.power = 60;
 spotLight.distance = 8;
 spotLight.castShadow = true;
+spotLight.shadow.mapSize.width = 1000;
+spotLight.shadow.mapSize.height = 1000;
 scene.add(spotLight);
 
 const AmbientLight = new THREE.AmbientLight(0xffffff, 0.5);
