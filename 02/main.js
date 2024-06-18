@@ -7,6 +7,9 @@ const renderer = new THREE.WebGLRenderer();
 document.body.appendChild(renderer.domElement);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
+// active shadow
+renderer.shadowMap.enabled = true;
+
 // Initialize scene
 const scene = new THREE.Scene();
 
@@ -26,20 +29,28 @@ camera.lookAt(0, 0, 0);
 // Add lighting
 const spotLight = new THREE.SpotLight(0xffffff, 1);
 spotLight.position.set(5, 1, 4);
-spotLight.power = 600;
+spotLight.power = 60;
+spotLight.distance = 8;
+spotLight.castShadow = true;
 scene.add(spotLight);
+
+const AmbientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(AmbientLight);
 
 // Add ground
 const planeGeometry = new THREE.PlaneGeometry(5, 4);
 const planeMaterial = new THREE.MeshLambertMaterial({ color: 0xdddddd });
 const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
 planeMesh.rotation.x = Math.PI * 1.5;
+planeMesh.position.y = -0.6;
+planeMesh.receiveShadow = true;
 scene.add(planeMesh);
 
 // Add box
 const boxGeometry = new THREE.BoxGeometry(1, 1);
 const boxMaterial = new THREE.MeshLambertMaterial({ color: 0xff0044 });
 const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
+boxMesh.castShadow = true;
 scene.add(boxMesh);
 
 // Add OrbitControls
@@ -61,7 +72,6 @@ boxFolder
     boxMesh.material.color.set(value);
   })
   .name("Color");
-boxFolder.open();
 
 const planeFolder = gui.addFolder("Plane");
 planeFolder.add(planeMesh.position, "x", -10, 10).name("Position X");
@@ -76,13 +86,19 @@ planeFolder
     planeMesh.material.color.set(value);
   })
   .name("Color");
-planeFolder.open();
 
 const cameraFolder = gui.addFolder("Camera");
 cameraFolder.add(camera.position, "x", -10, 10).name("Position X");
 cameraFolder.add(camera.position, "y", -10, 10).name("Position Y");
 cameraFolder.add(camera.position, "z", -10, 10).name("Position Z");
-cameraFolder.open();
+
+const spitLightFolder = gui.addFolder("spot light");
+spitLightFolder.add(spotLight.position, "x", -10, 10).name("Position X");
+spitLightFolder.add(spotLight.position, "y", -10, 10).name("Position Y");
+spitLightFolder.add(spotLight.position, "z", -10, 10).name("Position Z");
+spitLightFolder.add(spotLight, "power", 0, 1000).name("Power");
+spitLightFolder.add(spotLight, "distance", -100, 100).name("Distance");
+spitLightFolder.open();
 
 // Animation loop
 function animate() {
