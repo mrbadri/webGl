@@ -144,6 +144,8 @@ spitLightFolder.add(spotLight, "power", 0, 1000).name("Power");
 spitLightFolder.add(spotLight, "distance", -100, 100).name("Distance");
 spitLightFolder.open();
 
+let delta = 0;
+
 // Animation loop
 function animate() {
   const boxCenter = scene.getObjectByName("box1");
@@ -152,8 +154,12 @@ function animate() {
   boxCenter.rotation.x += 0.01;
   boxCenter.rotation.z += 0.01;
 
+  const boxLeft = scene.getObjectByName("box2");
+  delta = Date.now() / 1000;
+  boxLeft.position.y = 1 + Math.sin(delta) / 2;
+
   requestAnimationFrame(animate);
-  // controls.update();
+  controls.update();
   renderer.render(scene, camera);
 }
 
