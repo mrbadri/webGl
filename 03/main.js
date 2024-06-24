@@ -22,6 +22,9 @@ renderer.shadowMap.type = THREE.VSMShadowMap;
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0x0000ff, 3, 15);
 
+const width = window.innerWidth;
+const height = window.innerHeight;
+
 // Initialize camera
 const camera = new THREE.PerspectiveCamera(
   45,
@@ -29,6 +32,15 @@ const camera = new THREE.PerspectiveCamera(
   1,
   1000
 );
+
+// const camera = new THREE.OrthographicCamera(
+//   width / -2,
+//   width / 2,
+//   height / 2,
+//   height / -2,
+//   1,
+//   1000
+// );
 
 scene.add(camera);
 camera.position.x = 5;
