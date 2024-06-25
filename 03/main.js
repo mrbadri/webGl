@@ -12,7 +12,7 @@ const getDegree = (degree) => (Math.PI / 180) * degree;
 // Initialize renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 document.body.appendChild(renderer.domElement);
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(window.innerWidth * 2, window.innerHeight * 2);
 
 // active shadow
 renderer.shadowMap.enabled = true;
@@ -20,18 +20,13 @@ renderer.shadowMap.type = THREE.VSMShadowMap;
 
 // Initialize scene
 const scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0x0000ff, 3, 15);
+// scene.fog = new THREE.Fog(0xffffff, 3, 15);
 
 const width = window.innerWidth;
 const height = window.innerHeight;
 
 // Initialize camera
-const camera = new THREE.PerspectiveCamera(
-  45,
-  window.innerWidth / window.innerHeight,
-  1,
-  1000
-);
+const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
 
 // const camera = new THREE.OrthographicCamera(
 //   width / -2,
@@ -49,15 +44,15 @@ camera.lookAt(0, 0, 0);
 
 // Add lighting
 const spotLight = new THREE.SpotLight(0xffffff, 1);
-spotLight.position.set(3, 1, 2);
-spotLight.power = 60;
-spotLight.distance = 8;
+spotLight.distance = 100;
+spotLight.power = 150;
+spotLight.position.set(4.5, 0.1, 3);
 spotLight.castShadow = true;
-spotLight.shadow.mapSize.width = 1000;
-spotLight.shadow.mapSize.height = 1000;
+spotLight.shadow.mapSize.width = 2048;
+spotLight.shadow.mapSize.height = 2048;
 scene.add(spotLight);
 
-const AmbientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const AmbientLight = new THREE.AmbientLight(0xffffff, 0.3);
 scene.add(AmbientLight);
 
 // Add ground
@@ -93,7 +88,7 @@ const boxMaterial6 = new THREE.MeshLambertMaterial({
   color: getRandomColor(),
 });
 
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 4; i++) {
   // const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
   const boxMesh = new THREE.Mesh(boxGeometry, [
     boxMaterial1,
@@ -153,8 +148,6 @@ spitLightFolder.add(spotLight.position, "x", -10, 10).name("Position X");
 spitLightFolder.add(spotLight.position, "y", -10, 10).name("Position Y");
 spitLightFolder.add(spotLight.position, "z", -10, 10).name("Position Z");
 spitLightFolder.add(spotLight, "power", 0, 1000).name("Power");
-spitLightFolder.add(spotLight, "distance", -100, 100).name("Distance");
-spitLightFolder.open();
 
 let delta = 0;
 
@@ -169,6 +162,14 @@ function animate() {
   const boxLeft = scene.getObjectByName("box2");
   delta = Date.now() / 1000;
   boxLeft.position.y = 1 + Math.sin(delta) / 2;
+  boxLeft.rotation.y += 0.02;
+  boxLeft.rotation.x += 0.01;
+  boxLeft.rotation.z += 0.01;
+
+  spotLight.position.z = Math.sin(delta) * 2;
+
+  const box4 = scene.getObjectByName("box3");
+  box4.position.x = Math.sin(delta) * 2;
 
   requestAnimationFrame(animate);
   controls.update();
