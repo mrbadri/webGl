@@ -10,7 +10,7 @@ const getRandomColor = () =>
 const getDegree = (degree) => (Math.PI / 180) * degree;
 
 // Initialize renderer
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 document.body.appendChild(renderer.domElement);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
