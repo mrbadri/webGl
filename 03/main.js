@@ -94,7 +94,7 @@ for (let i = 0; i < 3; i++) {
 
   // boxMesh.position.z = i * 1.5 - 1.5;
   boxMesh.position.set(0, 0, i * 1.5 - 1.5);
-  boxMesh.rotation.set(0, getDegree(45), getDegree(45));
+  // boxMesh.rotation.set(0, getDegree(45), 0);
 
   // boxMesh.visible = false;
 
@@ -146,8 +146,14 @@ spitLightFolder.open();
 
 // Animation loop
 function animate() {
+  const boxCenter = scene.getObjectByName("box1");
+  boxCenter.position.y = 0.5;
+  boxCenter.rotation.y += 0.02;
+  boxCenter.rotation.x += 0.01;
+  boxCenter.rotation.z += 0.01;
+
   requestAnimationFrame(animate);
-  controls.update();
+  // controls.update();
   renderer.render(scene, camera);
 }
 
